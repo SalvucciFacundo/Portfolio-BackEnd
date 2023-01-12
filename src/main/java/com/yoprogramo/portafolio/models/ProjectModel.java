@@ -9,32 +9,35 @@ import javax.persistence.*;
 @Getter @Setter
 @Entity
 @Table(name="proyects")
-public class ProyectModel {
+public class ProjectModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NonNull
+
     @Column(length = 2500)
     private String description;
 
     @Column(length = 2048)
     private String imgUrl;
 
+    private String title;
+
     @Column(length = 2048)
-    private String proyectUrl;
+    private String url;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idPerson")
     private PersonModel person;
 
 
-    public ProyectModel() {
+    public ProjectModel() {
     }
 
-    public ProyectModel(@NonNull String description, String imgUrl, String proyectUrl) {
+    public ProjectModel( String description, String imgUrl, String title, String url) {
         this.description = description;
         this.imgUrl = imgUrl;
-        this.proyectUrl = proyectUrl;
+        this.title = title;
+        this.url = url;
     }
 }

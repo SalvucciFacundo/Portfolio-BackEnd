@@ -1,52 +1,53 @@
 package com.yoprogramo.portafolio.services;
 
+import com.yoprogramo.portafolio.Interface.InterfaceExperienciaService;
 import com.yoprogramo.portafolio.models.ExperienceModel;
 import com.yoprogramo.portafolio.repositories.ExperienceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.List;
 
 @Service
 @Transactional
-public class ExperienceService {
+public class ExperienceService implements InterfaceExperienciaService {
 
     @Autowired
-    ExperienceRepository experienceRepository;
-    //listar
-    public ArrayList<ExperienceModel> getAllExperiences(){
-        return (ArrayList<ExperienceModel>)experienceRepository.findAll();
+    ExperienceRepository experienciaRepositorio;
+
+
+    @Override
+    public List<ExperienceModel> get() {
+        return experienciaRepositorio.findAll();
     }
-    //crear
-    public void saveExperience(ExperienceModel experience){
-        experienceRepository.save(experience);
+
+    @Override
+    public void save(ExperienceModel experiencia) {
+        experienciaRepositorio.save(experiencia);
     }
-    //buscar
-    public Optional<ExperienceModel> getExperienceById(Long id) {
-        return experienceRepository.findById(id);
+
+    @Override
+    public void delete(Long id) {
+        experienciaRepositorio.deleteById(id);
     }
-    //actualizar
-    public ExperienceModel updateExperiece(Long id, ExperienceModel experienceUpdated){
-        ExperienceModel experienceModelsUpdate = experienceRepository.findById(id).get();
-        experienceModelsUpdate.setCompanyName(experienceUpdated.getCompanyName());
-        experienceModelsUpdate.setDescription(experienceUpdated.getDescription());
-        experienceModelsUpdate.setEnd(experienceUpdated.getEnd());
-        experienceModelsUpdate.setStart(experienceUpdated.getStart());
-        experienceModelsUpdate.setImgUrl(experienceUpdated.getImgUrl());
-        experienceModelsUpdate.setPerson(experienceUpdated.getPerson());
-        return experienceRepository.save(experienceModelsUpdate);
+
+    @Override
+    public ExperienceModel find(Long id) {
+        return experienciaRepositorio.findById(id).orElse(null);
     }
-    //eliminar
-    public boolean deleteExperience(Long id) {
-        try {
-            experienceRepository.deleteById(id);
-            return true;
-        }catch(Exception e){
-            return false;
-        }
+
+    public ExperienceModel getByName(String name){
+        return experienciaRepositorio.findByCompanyName(name).orElse(null);
     }
+    public boolean existsById(Long id){
+        return experienciaRepositorio.existsById(id);
+    }
+    public boolean existsByName(String name){
+        return experienciaRepositorio.existsByCompanyName(name);
+    }
+
+
 }
 
 

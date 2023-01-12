@@ -16,25 +16,23 @@ public class EducationModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NonNull
     private String title;
-    @NonNull
     private String institute;
-
-    private Date start;
-    private Date end;
+    private String start;
+    private String end;
 
     @Column(length = 2048)
     private String logoUrl;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idPerson")
+    @JoinColumn(name = "idPersona")
     private PersonModel person;
 
     public EducationModel() {
     }
 
-    public EducationModel(@NonNull String title, @NonNull String institute, Date start, Date end, String logoUrl) {
+    public EducationModel( String title, String institute, String start, String end, String logoUrl) {
         this.title = title;
         this.institute = institute;
         this.start = start;

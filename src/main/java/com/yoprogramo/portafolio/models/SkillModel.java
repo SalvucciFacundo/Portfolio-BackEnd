@@ -15,17 +15,17 @@ public class SkillModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NonNull
+
     private String name;
 
-    @NonNull
+
     private String value;
 
     @Column(length = 2048)
     private String imgUrl;
 
-    @NonNull
     private String type;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idPerson")
     private PersonModel person;
@@ -33,10 +33,10 @@ public class SkillModel {
     public SkillModel() {
     }
 
-    public SkillModel(@NonNull String name, @NonNull String value, String imgUrl, @NonNull String type) {
+    public SkillModel(String name, String value, String imgUrl, String type) {
         this.name = name;
         this.value = value;
         this.imgUrl = imgUrl;
-        this.type = type;
+        this.type= type;
     }
 }

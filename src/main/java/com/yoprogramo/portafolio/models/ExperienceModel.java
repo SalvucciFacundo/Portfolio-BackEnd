@@ -8,24 +8,20 @@ import javax.persistence.*;
 
 @Getter @Setter
 @Entity
-@Table(name="experiences")
+@Table(name="experience")
 public class ExperienceModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NonNull
     private String start;
 
-    @NonNull
     private String end;
 
-    @NonNull
     @Column(length = 2500)
     private String description;
 
-    @NonNull
     private String companyName;
 
     @Column(length = 2048)
@@ -38,7 +34,7 @@ public class ExperienceModel {
     public ExperienceModel() {
     }
 
-    public ExperienceModel(@NonNull String start, @NonNull String end, @NonNull String description, @NonNull String companyName, String imgUrl) {
+    public ExperienceModel( String start, String end,  String description, String companyName, String imgUrl) {
         this.start = start;
         this.end = end;
         this.description = description;

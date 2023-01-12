@@ -1,18 +1,44 @@
 package com.yoprogramo.portafolio.services;
 
+import com.yoprogramo.portafolio.Interface.InterfacePersonService;
 import com.yoprogramo.portafolio.models.PersonModel;
 import com.yoprogramo.portafolio.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.List;
+
+
 
 @Service
 @Transactional
-public class PersonService {
+public class PersonService implements InterfacePersonService {
     @Autowired
+    PersonRepository personaRepositorio;
+    @Override
+    public List<PersonModel> get() {
+        return personaRepositorio.findAll();
+    }
+
+    @Override
+    public void save(PersonModel persona) {
+        personaRepositorio.save(persona);
+    }
+
+    @Override
+    public void delete(Long id) {
+        personaRepositorio.deleteById(id);
+    }
+
+    @Override
+    public PersonModel find(Long id) {
+        return personaRepositorio.findById(id).orElse(null);
+    }
+    public boolean existsById(Long id){
+        return personaRepositorio.existsById(id);
+    }
+
+   /* @Autowired
     PersonRepository personRepository;
     //get All persons
     public ArrayList<PersonModel> getAllPersons(){
@@ -23,7 +49,7 @@ public class PersonService {
     public String savePerson(PersonModel person){
         try {
             personRepository.save(person);
-            return "Persona creada correctamente";
+            return "Registro creado";
         }catch (Exception e){
             return "Error"+e;
         }
@@ -48,7 +74,7 @@ public class PersonService {
             personModelsUpdate.setProfileUrl(personUpdated.getProfileUrl());
             personModelsUpdate.setBannerUrl(personUpdated.getBannerUrl());
             personRepository.save(personModelsUpdate);
-            return "Persona actualizada ";
+            return "Persona actualizada";
         }catch (Exception e){
             return "Error"+e;
         }
@@ -64,9 +90,6 @@ public class PersonService {
             return false;
         }
     }
+    */
 
-    //get person by name
-    public ArrayList<PersonModel> getPersonByLastName(String lastName) {
-        return personRepository.findByLastName(lastName);
-    }
 }

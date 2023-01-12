@@ -1,13 +1,14 @@
 package com.yoprogramo.portafolio.models;
 
 
+
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
+
 
 @Getter @Setter
 @Entity
@@ -44,11 +45,8 @@ public class PersonModel {
     @JoinColumn(name="idUser")
     private UserModel user;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person",cascade = CascadeType.ALL)
-    private List<NetworkModel> networksList;
-
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "person",cascade = CascadeType.ALL)
-    private List<ProyectModel> proyectsList;
+    private List<ProjectModel> proyectsList;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "person",cascade = CascadeType.ALL)
     private List<ExperienceModel> experienceList;
@@ -75,5 +73,7 @@ public class PersonModel {
         this.aboutMe = aboutMe;
         this.bannerUrl = bannerUrl;
         this.profileUrl = profileUrl;
+
     }
+
 }
