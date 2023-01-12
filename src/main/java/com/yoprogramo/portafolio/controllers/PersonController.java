@@ -3,6 +3,7 @@ package com.yoprogramo.portafolio.controllers;
 import com.yoprogramo.portafolio.Dto.DtoPerson;
 import com.yoprogramo.portafolio.models.ExperienceModel;
 import com.yoprogramo.portafolio.models.PersonModel;
+import com.yoprogramo.portafolio.models.ProjectModel;
 import com.yoprogramo.portafolio.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,12 +23,11 @@ public class PersonController {
     PersonService personService;
 
     @GetMapping("/all")
-    public List<PersonModel> get(){
-        return personService.get();
+    public ResponseEntity<List<PersonModel>> list(){
+        List<PersonModel> list = personService.get();
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
-    //public ArrayList<PersonModel> getAllPerson(){
-    //    return personService.getAllPersons();
-    //}
+
 
     @PostMapping("/create")
     public ResponseEntity<?>create(@RequestBody DtoPerson dtoPerson){
@@ -51,9 +51,7 @@ public class PersonController {
     public PersonModel find(@PathVariable Long id){
         return personService.find(id);
     }
-    //public Optional<PersonModel> getPersonById(@PathVariable("id")Long id){
-    //    return personService.getPersonById(id);
-    //}
+
 
     @PutMapping("/{id}")
 public ResponseEntity<?>update(@PathVariable ("id") Long id,@RequestBody DtoPerson dtoPerson){
